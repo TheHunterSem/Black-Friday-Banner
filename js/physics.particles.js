@@ -1,11 +1,5 @@
-// Source code licensed under Apache License 2.0. 
-// Copyright © 2017 William Ngan. (https://github.com/williamngan/pts)
-
-window.demoDescription = "Particles colliding with each other in space. Move the pointer to hit them like billiard balls.";
-
-Pts.quickStart( "#pt", "#123" );
-
-//// Demo code starts (anonymous function wrapper is optional) ---
+Pts.namespace( window );
+Pts.quickStart( "#pt", "transparent" );
 
 (function() {
 
@@ -17,13 +11,15 @@ Pts.quickStart( "#pt", "#123" );
 
       // Create world and 100 random points
       world = new World( space.innerBound, 1, 0 );
-      let pts = Create.distributeRandom( space.innerBound, 100 );
-      
+      let pts = Create.distributeRandom( space.innerBound, 40 );
+
       // Create particles and hit them with a random impulse
       for (let i=0, len=pts.length; i<len; i++) {
-        let p = new Particle( pts[i] ).size( (i===0) ? 30 : 3+Math.random()*space.size.x/50 );
+        let p = new Particle( pts[i] ).size(30);
+        let pp = new Particle( pts[i] ).size(20);
         p.hit( Num.randomRange(-50,50), Num.randomRange(-25, 25) );
         world.add( p );
+        world.add( pp );
       }
 
       world.particle( 0 ).lock = true; // lock it to move it by pointer later on
@@ -33,8 +29,8 @@ Pts.quickStart( "#pt", "#123" );
 
     animate: (time, ftime) => {
       world.drawParticles( (p, i) => {
-        let color = (i===0) ? "#fff" : ["#ff2d5d", "#42dc8e", "#2e43eb", "#ffe359"][i%4];
-        form.fillOnly( color ).point( p, p.radius, "circle" ) 
+        let color = (i===0) ? "#fff" : "#000000";
+        form.fillOnly( color ).point( p, p.radius, "circle" )
       });
 
       world.update( ftime );
@@ -45,10 +41,11 @@ Pts.quickStart( "#pt", "#123" );
       if (type == "move") {
         world.particle( 0 ).position = new Pt(px, py);
       }
-    
+
     }
+
   });
-  
+
   space.bindMouse().bindTouch();
   space.play();
 
