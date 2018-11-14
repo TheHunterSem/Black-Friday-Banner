@@ -29,6 +29,16 @@ body {
     overflow: hidden;
 }
 
+.banner-link,
+.banner-link:hover,
+.banner-link:focus,
+.banner-link:active,
+.banner-link:visited,
+.banner-link {
+    color: #000;
+    text-decoration: none;
+}
+
 .title {
     position: absolute;
     top: 50%;
@@ -38,4 +48,5 @@ body {
     text-transform: uppercase;
     text-align: center;
     margin: 0;
+    color: #000;
 }
